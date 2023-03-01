@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
 
+const calcuate = (width: number) => {
+  if (width < 480) {
+    return 1;
+  } else {
+    return 2;
+  }
+};
+
 export const useNumColumns = () => {
   const { width } = useWindowDimensions();
-  const [numColumns, setNumColumns] = useState(1);
+  const [numColumns, setNumColumns] = useState(calcuate(width));
   useEffect(() => {
-    if (width < 480) {
-      setNumColumns(1);
-    } else {
-      setNumColumns(2);
-    }
+    setNumColumns(calcuate(width));
   }, [width]);
+
   return { numColumns };
 };

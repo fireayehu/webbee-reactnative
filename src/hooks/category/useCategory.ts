@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   categoryRemove,
   categoryNameUpdate,
@@ -7,10 +7,14 @@ import {
   attributeUpdate,
   categoryTitleFieldUpdate,
 } from '@store/category/reducer';
-import { IAttribute } from '@store/category/type';
+import { IAttribute, ICategory } from '@store/category/type';
+import { IRootState } from 'store/store';
 
 export const useCategory = (id: string) => {
   const dispatch = useDispatch();
+
+  const { categories } = useSelector((state: IRootState) => state.category);
+  const category = categories.find(category => category.id === id) as ICategory;
 
   const removeCategory = () => {
     dispatch(
@@ -66,6 +70,7 @@ export const useCategory = (id: string) => {
   };
 
   return {
+    category,
     removeCategory,
     updateCategoryName,
     updateCategoryTitleField,

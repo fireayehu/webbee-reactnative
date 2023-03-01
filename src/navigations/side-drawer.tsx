@@ -21,6 +21,7 @@ export const SideDrawer = () => {
           key={category.id}
           name={`${Screens.CATEGORY_STACK}-${category.id}`}
           component={CategoryStack}
+          initialParams={{ id: category.id }}
           options={{
             drawerLabel: category.name,
             headerTitle: category.name,

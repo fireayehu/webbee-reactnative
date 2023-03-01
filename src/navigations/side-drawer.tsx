@@ -23,8 +23,8 @@ export const SideDrawer = () => {
           component={CategoryStack}
           initialParams={{ id: category.id }}
           options={{
-            drawerLabel: category.name,
-            headerTitle: category.name,
+            drawerLabel: category.name || 'Unnamed Category',
+            headerTitle: category.name || 'Unnamed Category',
           }}
         />
       ))}

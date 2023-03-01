@@ -12,7 +12,9 @@ import { AttributeType, IAttribute } from 'store/category/type';
 export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
   const styles = useStyles();
   const [addAttributeOpen, setAddAttributeOpen] = useState(false);
-  const [updateAtttibuteOpen, setUpdateAttributeOpen] = useState(false);
+  const [selectedAttribute, setSelectedAttribute] = useState<string | null>(
+    null,
+  );
   const [titleFiledOpen, setTitleFieldOpen] = useState(false);
 
   const {
@@ -44,7 +46,7 @@ export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
 
   const handleUpdateAttribute = (attribute: IAttribute) => {
     updateAttribute(attribute);
-    setUpdateAttributeOpen(false);
+    setSelectedAttribute(null);
   };
 
   const handleUpdateTitleField = (id: string) => {
@@ -54,7 +56,7 @@ export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
 
   return (
     <Card style={styles.container} contentStyle={styles.content}>
-      <Text variant="titleMedium">{category.name}</Text>
+      <Text variant="titleMedium">{category.name || 'Unnamed Category'}</Text>
       <TextInput
         mode="outlined"
         label="Category Name"
@@ -76,14 +78,14 @@ export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
             }
           />
           <Menu
-            visible={updateAtttibuteOpen}
-            onDismiss={() => setUpdateAttributeOpen(false)}
+            visible={selectedAttribute === attribute.id}
+            onDismiss={() => setSelectedAttribute(null)}
             anchor={
               <Button
                 mode="text"
                 uppercase
                 style={styles.button}
-                onPress={() => setUpdateAttributeOpen(true)}>
+                onPress={() => setSelectedAttribute(attribute.id)}>
                 {attribute.type}
               </Button>
             }>

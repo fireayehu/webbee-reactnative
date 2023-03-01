@@ -38,7 +38,7 @@ export const Category = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text variant="titleMedium">{category.name}</Text>
+        <Text variant="titleMedium">{category.name || 'Unnamed Category'}</Text>
         <Button
           mode="contained"
           uppercase

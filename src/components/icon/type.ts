@@ -21,4 +21,5 @@ export interface IIconProps {
   size?: number;
   color?: string;
   style?: StyleProp<TextStyle>;
+  onPress?: () => void;
 }

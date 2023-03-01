@@ -12,7 +12,7 @@ export const SideDrawer = () => {
       <Drawer.Screen
         name={Screens.DASHBOARD_STACK}
         component={DashboardStack}
-        options={{ drawerLabel: 'Dashboard', headerTitle: 'Dashbaord' }}
+        options={{ drawerLabel: 'Dashboard', headerTitle: 'Dashboard' }}
       />
       {[1, 2, 3, 4].map(i => (
         <Drawer.Screen

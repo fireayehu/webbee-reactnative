@@ -10,5 +10,11 @@ export const Dashboard = () => {
   const renderItem = useCallback(({ item }: any) => {
     return <DashboardItem category={item} />;
   }, []);
-  return <FlatList data={categories} renderItem={renderItem} />;
+  return (
+    <FlatList
+      data={categories}
+      renderItem={renderItem}
+      showsVerticalScrollIndicator={false}
+    />
+  );
 };

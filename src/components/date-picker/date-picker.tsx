@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { IDatePickerProps } from './type';
@@ -26,14 +26,17 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
 
   return (
     <View>
-      <TextInput
-        mode="outlined"
-        keyboardType="numeric"
-        label={label}
-        editable={false}
-        value={value}
-        onPressIn={() => setIsOpen(true)}
-      />
+      <Pressable onPressIn={() => setIsOpen(true)}>
+        <View pointerEvents="none">
+          <TextInput
+            mode="outlined"
+            keyboardType="numeric"
+            label={label}
+            editable={false}
+            value={value}
+          />
+        </View>
+      </Pressable>
       <DatePickerModal
         locale="en"
         mode="single"

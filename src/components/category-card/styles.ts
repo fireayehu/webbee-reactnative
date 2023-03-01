@@ -9,6 +9,7 @@ export const useStyles = () =>
       paddingVertical: 8,
       paddingHorizontal: 10,
       flexDirection: 'column',
+      flex: 1,
     },
     content: {
       gap: 16,

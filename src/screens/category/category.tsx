@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, useWindowDimensions, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useCategory } from '@hooks/category';
 import { useStyles } from './styles';
@@ -7,6 +7,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useRoute } from '@react-navigation/native';
 import { useItems } from '@hooks/item';
 import { ItemCard } from 'components/item-card';
+import { useNumColumns } from 'hooks/app';
 
 export const Category = () => {
   const styles = useStyles();
@@ -14,6 +15,9 @@ export const Category = () => {
 
   const { category } = useCategory(route.params.id);
   const { items, addItem } = useItems(route.params.id);
+
+  const { numColumns } = useNumColumns();
+  const { width } = useWindowDimensions();
 
   const handleAddItem = () => {
     const id = nanoid();
@@ -26,13 +30,15 @@ export const Category = () => {
 
   const renderItem = useCallback(
     ({ item }: any) => (
-      <ItemCard
-        item={item}
-        titleField={category.titleField}
-        attributes={category.attributes}
-      />
+      <View style={{ width: width / numColumns }}>
+        <ItemCard
+          item={item}
+          titleField={category.titleField}
+          attributes={category.attributes}
+        />
+      </View>
     ),
-    [category.titleField, category.attributes],
+    [category.titleField, category.attributes, width],
   );
 
   return (
@@ -47,7 +53,13 @@ export const Category = () => {
           Add New Item
         </Button>
       </View>
-      <FlatList data={items} renderItem={renderItem} />
+      <FlatList
+        key={numColumns}
+        numColumns={numColumns}
+        data={items}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };

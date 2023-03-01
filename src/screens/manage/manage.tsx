@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, useWindowDimensions, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { CategoryCard } from '@components/category-card';
 import { useCategories } from '@hooks/category';
 import { useStyles } from './styles';
 import { nanoid } from '@reduxjs/toolkit';
+import { useNumColumns } from 'hooks/app';
 
 export const Manage = () => {
   const styles = useStyles();
   const { categories, addCategory } = useCategories();
-
+  const { numColumns } = useNumColumns();
+  const { width } = useWindowDimensions();
   const handleAddCategory = () => {
     const attributeId = nanoid();
     addCategory({
@@ -27,16 +29,23 @@ export const Manage = () => {
   };
 
   const renderItem = useCallback(
-    ({ item }: any) => <CategoryCard category={item} />,
-    [],
+    ({ item }: any) => (
+      <View style={{ width: width / numColumns }}>
+        <CategoryCard category={item} />
+      </View>
+    ),
+    [width],
   );
 
   return (
     <View style={styles.container}>
       <FlatList
+        key={numColumns}
+        numColumns={numColumns}
         data={categories}
         renderItem={renderItem}
         contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
       />
       <Button
         mode="contained"

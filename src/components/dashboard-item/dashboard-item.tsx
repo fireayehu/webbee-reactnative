@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useStyles } from './styles';
 import { Button, Text } from 'react-native-paper';
@@ -7,10 +7,13 @@ import { useItems } from 'hooks/item';
 import { ItemCard } from 'components/item-card';
 import { IDashboardItemProps } from './type';
 import { nanoid } from '@reduxjs/toolkit';
+import { useNumColumns } from 'hooks/app';
 
 export const DashboardItem: React.FC<IDashboardItemProps> = ({ category }) => {
   const styles = useStyles();
   const { items, addItem } = useItems(category.id);
+  const { numColumns } = useNumColumns();
+  const { width } = useWindowDimensions();
 
   const handleAddItem = () => {
     const id = nanoid();
@@ -23,13 +26,15 @@ export const DashboardItem: React.FC<IDashboardItemProps> = ({ category }) => {
 
   const renderItem = useCallback(
     ({ item }: any) => (
-      <ItemCard
-        item={item}
-        titleField={category.titleField}
-        attributes={category.attributes}
-      />
+      <View style={{ width: width / numColumns }}>
+        <ItemCard
+          item={item}
+          titleField={category.titleField}
+          attributes={category.attributes}
+        />
+      </View>
     ),
-    [category.titleField, category.attributes],
+    [category.titleField, category.attributes, width],
   );
 
   return (
@@ -44,7 +49,13 @@ export const DashboardItem: React.FC<IDashboardItemProps> = ({ category }) => {
           Add New Item
         </Button>
       </View>
-      <FlatList data={items} renderItem={renderItem} />
+      <FlatList
+        key={numColumns}
+        numColumns={numColumns}
+        data={items}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };

@@ -1,13 +1,16 @@
 import { AppRegistry } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import App from './App';
+import { Provider as PaperProvider } from 'react-native-paper';
+import App from './src/App';
 import { name as appName } from './app.json';
 
 const Entry = () => (
-  <NavigationContainer>
-    <App />
-  </NavigationContainer>
+  <PaperProvider>
+    <NavigationContainer>
+      <App />
+    </NavigationContainer>
+  </PaperProvider>
 );
 
 AppRegistry.registerComponent(appName, () => Entry);

@@ -8,6 +8,7 @@ import { ICategoryCardProps } from './type';
 import { useCategory } from '@hooks/category';
 import { nanoid } from '@reduxjs/toolkit';
 import { AttributeType, IAttribute } from 'store/category/type';
+import { useItems } from 'hooks/item';
 
 export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
   const styles = useStyles();
@@ -25,6 +26,8 @@ export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
     removeAttribute,
     updateAttribute,
   } = useCategory(category.id);
+
+  const { updateItemValue } = useItems(category.id);
 
   const titleField = useMemo(() => {
     if (category.titleField) {
@@ -93,12 +96,13 @@ export const CategoryCard: React.FC<ICategoryCardProps> = ({ category }) => {
               <Menu.Item
                 key={type.id}
                 title={type.label}
-                onPress={() =>
+                onPress={() => {
                   handleUpdateAttribute({
                     ...attribute,
                     type: type.id,
-                  })
-                }
+                  });
+                  updateItemValue(attribute.id);
+                }}
               />
             ))}
           </Menu>

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 import { Button, Switch, TextInput, Card, Text } from 'react-native-paper';
 import { useStyles } from './styles';
@@ -29,10 +29,9 @@ export const ItemCard: React.FC<IItemCardProps> = ({
     <Card style={styles.container} contentStyle={styles.content}>
       <Text variant="titleSmall">{`${title}`}</Text>
       {attributes.map(attribute => (
-        <>
+        <Fragment key={attribute.id}>
           {attribute.type === 'Text' && (
             <TextInput
-              key={attribute.id}
               mode="outlined"
               label={attribute.label}
               value={
@@ -44,7 +43,6 @@ export const ItemCard: React.FC<IItemCardProps> = ({
           )}
           {attribute.type === 'Number' && (
             <TextInput
-              key={attribute.id}
               mode="outlined"
               keyboardType="numeric"
               label={attribute.label}
@@ -56,7 +54,7 @@ export const ItemCard: React.FC<IItemCardProps> = ({
             />
           )}
           {attribute.type === 'Checkbox' && (
-            <View style={styles.hStack} key={attribute.id}>
+            <View style={styles.hStack}>
               <Switch
                 value={
                   !!item.values.find(value => value.attribute === attribute.id)
@@ -77,7 +75,6 @@ export const ItemCard: React.FC<IItemCardProps> = ({
 
           {attribute.type === 'Date' && (
             <DatePicker
-              key={attribute.id}
               label={attribute.label}
               value={
                 item.values.find(value => value.attribute === attribute.id)
@@ -86,7 +83,7 @@ export const ItemCard: React.FC<IItemCardProps> = ({
               onChange={date => updateItem(attribute.id, date)}
             />
           )}
-        </>
+        </Fragment>
       ))}
       <Button
         icon="delete"

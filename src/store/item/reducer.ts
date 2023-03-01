@@ -40,7 +40,29 @@ export const itemSlice = createSlice({
         ),
       };
     },
+
+    itemValueUpdate: (state, { payload: { category, attribute } }) => {
+      return {
+        ...state,
+        items: state.items.map(item =>
+          item.category === category
+            ? {
+                ...item,
+                values: item.values.map(value =>
+                  value.attribute === attribute
+                    ? {
+                        ...value,
+                        value: null,
+                      }
+                    : value,
+                ),
+              }
+            : item,
+        ),
+      };
+    },
   },
 });
 
-export const { itemAdd, itemRemove, itemUpdate } = itemSlice.actions;
+export const { itemAdd, itemRemove, itemUpdate, itemValueUpdate } =
+  itemSlice.actions;

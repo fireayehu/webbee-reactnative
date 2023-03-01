@@ -10,7 +10,7 @@ const Drawer = createDrawerNavigator();
 export const SideDrawer = () => {
   const { categories } = useCategories();
   return (
-    <Drawer.Navigator initialRouteName={Screens.MANAGE_STACK}>
+    <Drawer.Navigator initialRouteName={Screens.DASHBOARD_STACK}>
       <Drawer.Screen
         name={Screens.DASHBOARD_STACK}
         component={DashboardStack}

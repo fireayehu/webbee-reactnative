@@ -41,6 +41,14 @@ export const Category = () => {
     [category.titleField, category.attributes, width],
   );
 
+  const EmptyList = () => {
+    return (
+      <View style={styles.emptyList}>
+        <Text>No Items to display</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -58,7 +66,9 @@ export const Category = () => {
         numColumns={numColumns}
         data={items}
         renderItem={renderItem}
+        ListEmptyComponent={EmptyList}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
       />
     </View>
   );

@@ -6,6 +6,9 @@ export const useStyles = () =>
       position: 'relative',
       flex: 1,
     },
+    contentContainer: {
+      flexGrow: 1,
+    },
     header: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -16,5 +19,10 @@ export const useStyles = () =>
     },
     button: {
       borderRadius: 5,
+    },
+    emptyList: {
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });

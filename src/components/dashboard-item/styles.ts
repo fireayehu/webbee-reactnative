@@ -13,4 +13,8 @@ export const useStyles = () =>
     button: {
       borderRadius: 5,
     },
+    emptyList: {
+      paddingVertical: 20,
+      alignItems: 'center',
+    },
   });

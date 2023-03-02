@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, useWindowDimensions, View } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { CategoryCard } from '@components/category-card';
 import { useCategories } from '@hooks/category';
 import { useStyles } from './styles';
@@ -39,6 +39,14 @@ export const Manage = () => {
     [width],
   );
 
+  const EmptyList = () => {
+    return (
+      <View style={styles.emptyList}>
+        <Text>No Categories to display</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -46,6 +54,7 @@ export const Manage = () => {
         numColumns={numColumns}
         data={categories}
         renderItem={renderItem}
+        ListEmptyComponent={EmptyList}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       />

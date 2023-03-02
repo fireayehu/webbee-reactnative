@@ -37,6 +37,14 @@ export const DashboardItem: React.FC<IDashboardItemProps> = ({ category }) => {
     [category.titleField, category.attributes, width],
   );
 
+  const EmptyList = () => {
+    return (
+      <View style={styles.emptyList}>
+        <Text>No Items to display</Text>
+      </View>
+    );
+  };
+
   return (
     <View>
       <View style={styles.header}>
@@ -54,6 +62,7 @@ export const DashboardItem: React.FC<IDashboardItemProps> = ({ category }) => {
         numColumns={numColumns}
         data={items}
         renderItem={renderItem}
+        ListEmptyComponent={EmptyList}
         showsVerticalScrollIndicator={false}
       />
     </View>

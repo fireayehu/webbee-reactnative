@@ -8,6 +8,7 @@ export const useStyles = () =>
     },
     content: {
       paddingBottom: 70,
+      flexGrow: 1,
     },
     button: {
       position: 'absolute',
@@ -15,5 +16,11 @@ export const useStyles = () =>
       left: 20,
       right: 20,
       borderRadius: 5,
+    },
+    emptyList: {
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 15,
     },
   });

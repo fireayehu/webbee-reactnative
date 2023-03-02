@@ -1,7 +1,11 @@
 import { AppRegistry } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { Provider as PaperProvider } from 'react-native-paper';
+import {
+  Provider as PaperProvider,
+  MD2LightTheme as DafaultTheme,
+  DefaultTheme,
+} from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { registerTranslation, en } from 'react-native-paper-dates';
 import { store } from '@store/store';
@@ -12,7 +16,7 @@ registerTranslation('en', en);
 
 const Entry = () => (
   <Provider store={store}>
-    <PaperProvider>
+    <PaperProvider theme={DefaultTheme}>
       <NavigationContainer>
         <App />
       </NavigationContainer>

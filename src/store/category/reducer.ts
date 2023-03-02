@@ -9,6 +9,12 @@ export const categorySlice = createSlice({
   name: 'category',
   initialState: INITIAL_STATE,
   reducers: {
+    categoryRehydrate: (state, { payload: { categories } }) => {
+      return {
+        ...state,
+        categories,
+      };
+    },
     categoryAdd: (state, { payload: { category } }) => {
       return {
         ...state,
@@ -55,6 +61,9 @@ export const categorySlice = createSlice({
           category.id === id
             ? {
                 ...category,
+                titleField: category.titleField
+                  ? category.titleField
+                  : attribute.id,
                 attributes: [...category.attributes, attribute],
               }
             : category,
@@ -68,6 +77,15 @@ export const categorySlice = createSlice({
           category.id === id
             ? {
                 ...category,
+                titleField:
+                  category.titleField === attributeId &&
+                  category.attributes.filter(
+                    attribute => attribute.id !== attributeId,
+                  ).length > 0
+                    ? category.attributes.filter(
+                        attribute => attribute.id !== attributeId,
+                      )[0].id
+                    : null,
                 attributes: category.attributes.filter(
                   attribute => attribute.id !== attributeId,
                 ),
@@ -95,6 +113,7 @@ export const categorySlice = createSlice({
 });
 
 export const {
+  categoryRehydrate,
   categoryAdd,
   categoryRemove,
   categoryNameUpdate,

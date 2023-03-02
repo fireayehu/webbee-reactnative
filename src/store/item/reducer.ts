@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { categoryRemove } from 'store/category/reducer';
 import { IInitialState } from './type';
 
 const INITIAL_STATE: IInitialState = {
@@ -9,6 +10,12 @@ export const itemSlice = createSlice({
   name: 'item',
   initialState: INITIAL_STATE,
   reducers: {
+    itemRehydrate: (state, { payload: { items } }) => {
+      return {
+        ...state,
+        items,
+      };
+    },
     itemAdd: (state, { payload: { item } }) => {
       return {
         ...state,
@@ -62,7 +69,20 @@ export const itemSlice = createSlice({
       };
     },
   },
+  extraReducers: builder => {
+    builder.addCase(categoryRemove, (state, { payload: { id } }) => {
+      return {
+        ...state,
+        items: state.items.filter(item => item.category !== id),
+      };
+    });
+  },
 });
 
-export const { itemAdd, itemRemove, itemUpdate, itemValueUpdate } =
-  itemSlice.actions;
+export const {
+  itemRehydrate,
+  itemAdd,
+  itemRemove,
+  itemUpdate,
+  itemValueUpdate,
+} = itemSlice.actions;

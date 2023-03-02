@@ -1,7 +1,10 @@
 import React from 'react';
 import { SideDrawer } from '@navigations/side-drawer';
+import { usePersist } from 'hooks/app';
 
-const App = (): JSX.Element => {
+const App = () => {
+  const { rehydrated } = usePersist();
+  if (!rehydrated) return null;
   return <SideDrawer />;
 };
 
